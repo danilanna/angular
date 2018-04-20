@@ -1,0 +1,32 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.default-form, .default-input-full-width {
+    width: 100%;
+}
+
+.default-form button {
+    margin-top: 20px;
+}
+
+.row {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.toolbar {
+    margin-bottom: 20px;
+}
+
+.card-header {
+    width: 50%;
+}
+
+.card-header-add {
+    padding-right: 20px;
+    text-align: right;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}

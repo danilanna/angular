@@ -1,0 +1,37 @@
+<mat-card *ngIf="permissions">
+    <form id="form" class="default-form">
+
+        <mat-form-field class="default-input-full-width">
+            <input matInput placeholder="Enter name" id="name" name="name" [(ngModel)]="user.name" type="text">
+        </mat-form-field>
+
+        <mat-form-field class="default-input-full-width">
+            <input matInput placeholder="Enter email" id="email" name="email" [(ngModel)]="user.email" type="email">
+        </mat-form-field>
+
+        <div class="row">
+            <label>Admin: </label>
+            <mat-radio-group class="example-radio-group" name="admin" [(ngModel)]="user.admin">
+                <mat-radio-button class="example-radio-button" [value]="true">
+                    Yes
+                </mat-radio-button>
+                <mat-radio-button class="example-radio-button" [value]="false">
+                    No
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <label>Permissions: </label>
+
+        <mat-selection-list #permissionList>
+            <mat-list-option *ngFor="let permission of permissions" [selected]="permission.selected" (click)="clickedOnRow(permission)">
+                {{permission.name}}
+            </mat-list-option>
+        </mat-selection-list>
+
+        <div fxLayout="row" fxLayoutAlign="end center" >
+            <button mat-raised-button color="primary" id="save" (click)="save(user)" >Submit</button>
+        </div>
+
+    </form>
+</mat-card>

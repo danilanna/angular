@@ -1,0 +1,61 @@
+<mat-card>
+
+    <mat-card-header>
+      <div class="card-header">
+        <mat-card-title>Permissions</mat-card-title>
+      </div>
+
+      <div class="card-header card-header-add">
+        <button mat-icon-button routerLink="/service/edit">
+          <mat-icon>person add</mat-icon>
+        </button>
+      </div>
+
+    </mat-card-header>
+
+    <mat-table #table [dataSource]="services">
+  
+      <!-- Api Column -->
+      <ng-container matColumnDef="api">
+        <mat-header-cell *matHeaderCellDef> Api </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.api}} </mat-cell>
+      </ng-container>
+  
+      <!-- Method Column -->
+      <ng-container matColumnDef="method">
+        <mat-header-cell *matHeaderCellDef> Method </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.method}} </mat-cell>
+      </ng-container>
+  
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <button mat-icon-button routerLink="/service/{{element._id}}">
+              <mat-icon>build</mat-icon>
+            </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="openDialog(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="paginator.length"
+              [pageSize]="paginator.pageSize"
+              [pageIndex]="paginator.pageIndex"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              (page)="getAll($event)">
+    </mat-paginator> 
+
+</mat-card>

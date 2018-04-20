@@ -1,0 +1,17 @@
+<mat-card *ngIf="permission">
+    <form id="form" class="default-form">
+
+        <mat-form-field class="default-input-full-width">
+            <input matInput placeholder="Enter name" id="name" name="name" [(ngModel)]="permission.name" type="text">
+        </mat-form-field>
+
+        <mat-form-field class="default-input-full-width">
+            <input matInput placeholder="Enter Description" id="description" name="description" [(ngModel)]="permission.description" type="text">
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="end center" >
+            <button mat-raised-button color="primary" id="save" (click)="save(permission)" >Submit</button>
+        </div>
+
+    </form>
+</mat-card>

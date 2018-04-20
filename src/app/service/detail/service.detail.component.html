@@ -1,0 +1,25 @@
+<mat-card *ngIf="permissions">
+    <form id="form" class="default-form">
+
+        <mat-form-field class="default-input-full-width">
+            <input matInput placeholder="Enter api" id="api" name="api" [(ngModel)]="service.api" type="text">
+        </mat-form-field>
+
+        <mat-form-field class="default-input-full-width">
+            <input matInput placeholder="Enter method" id="method" name="method" [(ngModel)]="service.method" type="text">
+        </mat-form-field>
+
+        <label>Permissions:</label>
+
+        <mat-selection-list #permissionList>
+            <mat-list-option *ngFor="let permission of permissions" [selected]="permission.selected" (click)="clickedOnRow(permission)">
+                {{permission.name}}
+            </mat-list-option>
+        </mat-selection-list>
+
+        <div fxLayout="row" fxLayoutAlign="end center" >
+            <button mat-raised-button color="primary" id="save" (click)="save(service)" >Submit</button>
+        </div>
+
+    </form>
+</mat-card>

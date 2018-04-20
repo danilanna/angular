@@ -1,0 +1,69 @@
+<mat-card>
+
+    <mat-card-header>
+      <div class="card-header">
+        <mat-card-title>Users</mat-card-title>
+      </div>
+
+      <div class="card-header card-header-add">
+        <button mat-icon-button routerLink="/user/edit">
+          <mat-icon>person add</mat-icon>
+        </button>
+      </div>
+
+    </mat-card-header>
+
+    <mat-table #table [dataSource]="users">
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+  
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+  
+      <!-- Admin Column -->
+      <ng-container matColumnDef="admin">
+        <mat-header-cell *matHeaderCellDef> Admin </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.admin}} </mat-cell>
+      </ng-container>
+  
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <button mat-icon-button routerLink="/user/{{element._id}}">
+              <mat-icon>build</mat-icon>
+            </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="openDialog(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="paginator.length"
+              [pageSize]="paginator.pageSize"
+              [pageIndex]="paginator.pageIndex"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              (page)="getAll($event)">
+    </mat-paginator> 
+
+    {{pageEvent}}
+
+</mat-card>

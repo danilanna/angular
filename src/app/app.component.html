@@ -1,0 +1,17 @@
+<ng-progress></ng-progress>
+<mat-toolbar color="primary" class="toolbar">
+  <mat-toolbar-row>
+    <a mat-button routerLink="user">Users</a>
+    <a mat-button routerLink="permission">Permission</a>
+    <a mat-button routerLink="service">Service</a>
+    <span class="spacer"></span>
+    <button class="logout" mat-button (click)="openDialog()">Logout</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+  <div class="mat-app-background basic-container">
+    <dialog>loading</dialog>
+  </div>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,18 @@
+<mat-card>
+  <form id="form" class="default-form" >
+
+    <mat-form-field class="default-input-full-width">
+      <input matInput placeholder="Enter email" id="email" name="email" [(ngModel)]="login.email" type="email">
+    </mat-form-field>
+
+    <mat-form-field class="default-input-full-width">
+        <input type="password" matInput id="password" name="password" [(ngModel)]="login.password" placeholder="Password">
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="end center" >
+      <button  mat-raised-button color="primary" id="submit" (click)="submit(login)" >Submit</button>
+    </div>
+  
+  </form>
+
+</mat-card>
