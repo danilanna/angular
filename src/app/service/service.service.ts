@@ -1,13 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Observable';    
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
-
+import { Observable } from 'rxjs/Observable';
 import { Service } from './service';
 import { Paginator } from '../components/paginator/paginator.component';
 import { APP_CONFIG, AppConfig } from '../app.config';
@@ -28,24 +21,24 @@ export class ServiceService {
         this.apiEndpoint = config.apiEndpoint + `services/`;
     }
 
-    async delete(user: Service): Promise<Service> {
-        return await this.http.delete<Service>(this.apiEndpoint + user._id, httpOptions).toPromise();
+    delete(user: Service): Observable<Service> {
+        return this.http.delete<Service>(this.apiEndpoint + user._id, httpOptions);
     }
 
-    async save(user: Service): Promise<Service> {
-        return await this.http.post<Service>(this.apiEndpoint, user, httpOptions).toPromise();
+    save(user: Service): Observable<Service> {
+        return this.http.post<Service>(this.apiEndpoint, user, httpOptions);
     }
 
-    async edit(user: Service): Promise<Service> {
-        return await this.http.put<Service>(this.apiEndpoint + user._id, user, httpOptions).toPromise();
+    edit(user: Service): Observable<Service> {
+        return this.http.put<Service>(this.apiEndpoint + user._id, user, httpOptions);
     }
 
-    async getAll(paginator): Promise<Paginator<Service>> {
-        return this.http.get<Paginator<Service>>(this.apiEndpoint, {params: paginator}).toPromise();
+    getAll(paginator): Observable<Paginator<Service>> {
+        return this.http.get<Paginator<Service>>(this.apiEndpoint, {params: paginator});
     }
 
-    async getService(id): Promise<Service> {
-        return await this.http.get<Service>(this.apiEndpoint + id).toPromise();
+    getService(id): Observable<Service> {
+        return this.http.get<Service>(this.apiEndpoint + id);
     }
 
 }

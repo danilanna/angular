@@ -4,10 +4,10 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
     templateUrl: 'dialog.component.html'
 })
-export class Dialog {
+export class DialogComponent {
   
     constructor(
-      public dialogRef: MatDialogRef<Dialog>,
+      public dialogRef: MatDialogRef<DialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any) { }
   
     onNoClick(): void {

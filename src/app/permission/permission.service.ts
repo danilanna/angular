@@ -1,13 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Observable';    
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
 import { Permission } from './permission';
 import { APP_CONFIG, AppConfig } from '../app.config';
 import { Paginator } from '../components/paginator/paginator.component';
@@ -28,27 +21,27 @@ export class PermissionService {
         this.apiEndpoint = config.apiEndpoint + `permissions/`;
     }
 
-    async delete(user: Permission): Promise<Permission> {
-        return await this.http.delete<Permission>(this.apiEndpoint + user._id, httpOptions).toPromise();
+    delete(user: Permission): Observable<Permission> {
+        return this.http.delete<Permission>(this.apiEndpoint + user._id, httpOptions);
     }
 
-    async save(user: Permission): Promise<Permission> {
-        return await this.http.post<Permission>(this.apiEndpoint, user, httpOptions).toPromise();
+    save(user: Permission): Observable<Permission> {
+        return this.http.post<Permission>(this.apiEndpoint, user, httpOptions);
     }
 
-    async edit(user: Permission): Promise<Permission> {
-        return await this.http.put<Permission>(this.apiEndpoint + user._id, user, httpOptions).toPromise();
+    edit(user: Permission): Observable<Permission> {
+        return this.http.put<Permission>(this.apiEndpoint + user._id, user, httpOptions);
     }
 
-    async getAll(paginator): Promise<Paginator<Permission>> {
-        return this.http.get<Paginator<Permission>>(this.apiEndpoint, {params: paginator}).toPromise();
+    getAll(paginator): Observable<Paginator<Permission>> {
+        return this.http.get<Paginator<Permission>>(this.apiEndpoint, {params: paginator});
     }
 
-    async getAllNoPagination(): Promise<Permission[]> {
-        return this.http.get<Permission[]>(this.apiEndpoint).toPromise();
+    getAllNoPagination(): Observable<Permission[]> {
+        return this.http.get<Permission[]>(this.apiEndpoint);
     }
 
-    async getPermission(id): Promise<Permission> {
-        return await this.http.get<Permission>(this.apiEndpoint + id).toPromise();
+    getPermission(id): Observable<Permission> {
+        return this.http.get<Permission>(this.apiEndpoint + id);
     }
 }

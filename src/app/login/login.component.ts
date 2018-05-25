@@ -9,7 +9,8 @@ import { LoginService } from './login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
   public login: Login;
@@ -23,12 +24,13 @@ export class LoginComponent implements OnInit {
 
   submit(login: Login): void {
     this.loginService.signin(login)
-    .then((res) => {
+    .subscribe((res) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('refreshToken', res.refreshToken);
         this.toastr.success('Login', 'Signed successfully.');
         this.router.navigate(['dashboard']);
-      }).catch(err => {
+      },
+      err => {
         this.toastr.error('Login', 'User not found!');
       });
   }

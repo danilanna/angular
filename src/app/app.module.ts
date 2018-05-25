@@ -4,20 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
-
-
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { MatPaginatorModule, MatSidenavModule, MatToolbarModule, MatDialogModule, MatCheckboxModule, MatListModule, MatInputModule, MatButtonModule, MatCardModule, MatDividerModule, MatTableModule, MatIconModule, MatRadioModule } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
-
 import { CanActivateTeam } from './app.canActivateTeam';
-
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { APP_CONFIG, APP_DI_CONFIG } from './app.config';
-import { LoginService } from './login/login.service';
-import { UserService } from './user/user.service';
-import { PermissionService } from './permission/permission.service';
-import { ServiceService } from './service/service.service';
 import { AppRoutingModule } from './app-routing.module';
 import { Interceptor } from './app.intercept';
 import { UserComponent } from './user/user.component';
@@ -26,14 +21,7 @@ import { PermissionComponent } from './permission/permission.component';
 import { PermissionDetailComponent } from './permission/detail/permission.detail.component';
 import { ServiceComponent } from './service/service.component';
 import { ServiceDetailComponent } from './service/detail/service.detail.component';
-
-import { Dialog } from './components/dialog/dialog.component';
-
-import { NgProgressModule } from '@ngx-progressbar/core';
-import { NgProgressHttpModule } from '@ngx-progressbar/http';
-
-import { MatPaginatorModule, MatSidenavModule, MatToolbarModule, MatDialogModule, MatCheckboxModule, MatListModule, MatInputModule, MatButtonModule, MatCardModule, MatDividerModule, MatTableModule, MatIconModule, MatRadioModule } from '@angular/material';
-
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +32,7 @@ import { MatPaginatorModule, MatSidenavModule, MatToolbarModule, MatDialogModule
     UserDetailComponent,
     PermissionComponent,
     PermissionDetailComponent,
-    Dialog,
+    DialogComponent,
     ServiceComponent,
     ServiceDetailComponent
   ],
@@ -72,14 +60,10 @@ import { MatPaginatorModule, MatSidenavModule, MatToolbarModule, MatDialogModule
     MatSidenavModule,
     MatPaginatorModule
   ],
-  entryComponents: [Dialog],
+  entryComponents: [DialogComponent],
   providers: [
-    LoginService,
-    UserService,
-    PermissionService,
-    ServiceService,
     CanActivateTeam,
-    { 
+    {
       provide: APP_CONFIG, 
       useValue: APP_DI_CONFIG 
     },

@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
 import { ToastrService } from 'ngx-toastr';
-
 import { Service } from './service';
 import { ServiceService } from './service.service';
-import { Paginator } from '../components/paginator/paginator.component';
-
-import { Dialog } from '../components/dialog/dialog.component';
+import { DialogComponent } from '../components/dialog/dialog.component';
 
 @Component({
   selector: 'app-service',
   templateUrl: './service.component.html',
-  styleUrls: ['./service.component.css']
+  styleUrls: ['./service.component.css'],
+  providers: [ServiceService]
 })
 export class ServiceComponent implements OnInit {
 
@@ -21,20 +18,21 @@ export class ServiceComponent implements OnInit {
   public dataSource = this.services;
   public paginator = {};
 
-  constructor(private serviceService: ServiceService, private toastr: ToastrService, public dialog: MatDialog) { 
+  constructor(private serviceService: ServiceService, private toastr: ToastrService, public dialog: MatDialog) {
+    this.getAll(null);
   }
 
   openDialog(service): void {
-    let dialogRef = this.dialog.open(Dialog, {
+    let dialogRef = this.dialog.open(DialogComponent, {
       data: { model: service, field: 'api' }
     });
 
     dialogRef.afterClosed().subscribe(service => {
       if(service) {
-        this.serviceService.delete(service).then(() => {
+        this.serviceService.delete(service).subscribe(() => {
           this.getAll(null);
           this.toastr.success('Service', 'Service Deleted!');
-        }).catch(() => {
+        }, () => {
           this.toastr.error('Service', 'An error occurred, try again.');
         });
       }
@@ -42,10 +40,9 @@ export class ServiceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAll(null);
   }
 
-  async getAll(event) {
+  getAll(event) {
     let paginator;
     if(event) {
       paginator = {
@@ -58,13 +55,14 @@ export class ServiceComponent implements OnInit {
         limit: 5
       }
     }
-    const response = await this.serviceService.getAll(paginator)
-    this.services = response.docs;
-    this.paginator = {
-      length: response.total,
-      pageIndex: response.page -1
-    };
+    this.serviceService.getAll(paginator).subscribe(
+      (response) => {
+        this.services = response.docs;
+        this.paginator = {
+          length: response.total,
+          pageIndex: response.page -1
+        };
+      }
+    )
   }
-
-
 }

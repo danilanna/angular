@@ -1,13 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Observable';    
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
 import { Login } from './login';
 import { APP_CONFIG, AppConfig } from '../app.config';
 
@@ -26,8 +19,8 @@ export class LoginService {
         this.apiEndpoint = config.apiEndpoint;
     }
 
-    async signin(login: Login): Promise<Login> {
-        return await this.http.post<Login>(this.apiEndpoint + 'authenticate', login, httpOptions).toPromise();
+    signin(login: Login): Observable<Login> {
+        return this.http.post<Login>(this.apiEndpoint + 'authenticate', login, httpOptions);
     }
 
 }
